@@ -1,70 +1,34 @@
 import React, { useState } from "react";
 
+const itemMaker = (listId: number, num: number, text: string) => {
+  let result = [];
+  for (let i = 1; i <= num; i++) {
+    result.push({
+      id: `${listId}-${i}`,
+      name: `${text} ${i}`,
+      isLocked: false,
+    });
+  }
+  return result;
+};
+
 function App() {
   const [dataset, setDataset] = useState<any>([
     {
       id: 1,
-      labelName: "Task List",
-      list: [
-        {
-          id: 1,
-          name: "Pagination Ui",
-          isLocked: false,
-        },
-        {
-          id: 2,
-          name: "Pagination Functionality",
-          isLocked: false,
-        },
-        {
-          id: 3,
-          name: "Infinity Scroll",
-          isLocked: false,
-        },
-        {
-          id: 4,
-          name: "Printer Print",
-          isLocked: false,
-        },
-      ],
+      labelName: "Backlog Task",
+      list: itemMaker(1, 5, "Backlog Task 🗑️"),
     },
     {
       id: 2,
-      labelName: "Doing",
-      list: [
-        {
-          id: 1,
-          name: "From Validation",
-          isLocked: false,
-        },
-      ],
+      labelName: "Doing ",
+      list: itemMaker(2, 3, "Doing Task 👩‍🏭"),
     },
     {
       id: 3,
-      labelName: "Done",
-      list: [
-        {
-          id: 1,
-          name: "Survey Order create JASF KAGS asg asg as gas gas",
-          isLocked: false,
-        },
-      ],
+      labelName: "Hello I'm Done ",
+      list: itemMaker(3, 2, "Done Task 👏"),
     },
-    // {
-    //   id: 4,
-    //   labelName: "Others",
-    //   list: [],
-    // },
-    // {
-    //   id: 5,
-    //   labelName: "New Others",
-    //   list: [],
-    // },
-    // {
-    //   id: 6,
-    //   labelName: "OOOO",
-    //   list: [],
-    // },
   ]);
   const [selectedItem, setSelectedItem] = useState<any>();
 
@@ -94,27 +58,10 @@ function App() {
     e.preventDefault();
   };
 
-  const onDragEnterCard = (e: any) => {
-    const index = e.target.attributes["data-index"].value;
-    const nestedIndex = e.target.attributes["data-nestedindex"].value;
-
-    const { prevLocation, item } = selectedItem;
-
-    console.log("Current", index, nestedIndex);
-    console.log("Prev", prevLocation?.index, prevLocation?.nestedIndex);
-
-    if (nestedIndex !== prevLocation?.nestedIndex) {
-      const copy = [...dataset];
-      const arrList = copy[index].list;
-      const temp = arrList[nestedIndex];
-      arrList[prevLocation?.nestedIndex] = temp;
-      arrList[nestedIndex] = item;
-      setDataset(copy);
-    }
-  };
-
   const onDropCard = (e: any) => {
+    // console.log("Wrapper Drop", selectedItem?.item);
     e.preventDefault();
+
     const dropIndex = e.target.attributes["data-index"] || null;
 
     if (selectedItem?.prevLocation?.index === dropIndex?.value) {
@@ -123,6 +70,15 @@ function App() {
     }
 
     if (selectedItem?.item && e.target.attributes["data-index"]) {
+      const itemAlreayInList = dataset[dropIndex.value].list.some(
+        (item: any) => item?.id === selectedItem?.item?.id
+      );
+
+      // console.log("itemAlreayInList", itemAlreayInList);
+      if (itemAlreayInList) {
+        return;
+      }
+
       const index = e.target.attributes["data-index"].value;
       const copy = [...dataset];
       copy[index].list.push(selectedItem?.item);
@@ -136,8 +92,77 @@ function App() {
 
       setSelectedItem(null);
     }
+  };
 
-    // console.log(selectedItem, "Dropeed");
+  const nestedDrop = (e: any) => {
+    // console.log("Nested Drop", selectedItem?.item);
+    const { prevLocation, item } = selectedItem;
+    const index = e.target.attributes["data-index"].value;
+    const nestedIndex = e.target.attributes["data-nestedindex"].value;
+
+    /* If card in current list */
+    if (index === prevLocation.index) {
+      const copy = [...dataset];
+      const arr = copy[index].list?.filter(
+        (_: any, i: number) => i !== +prevLocation?.nestedIndex
+      );
+
+      const right = arr.splice(nestedIndex, arr.length);
+      const result = [...arr, item, ...right];
+      copy[index].list = result;
+      setDataset(copy);
+      setSelectedItem(null);
+    } else {
+      console.log(
+        "Called NEsted Worng!!",
+        { index, nestedIndex },
+        prevLocation
+      );
+      const copy = [...dataset];
+      const arr = copy[index].list;
+
+      let right;
+      let result;
+
+      if (+nestedIndex === 0) {
+        /* Insert At Beggening */
+        arr.unshift(item);
+        result = arr;
+      } else if (+nestedIndex + 1 === arr.length) {
+        /* Insert At Last */
+        arr.push(item);
+        result = arr;
+      } else {
+        /* Insert At Anywhere */
+        right = arr.splice(nestedIndex, arr.length);
+        result = [...arr, item, ...right];
+      }
+
+      copy[index].list = result;
+      const filter = copy[prevLocation.index].list.filter(
+        (_: any, i: number) => i !== +prevLocation.nestedIndex
+      );
+      copy[prevLocation.index].list = filter;
+
+      setDataset(copy);
+      setSelectedItem(null);
+    }
+
+    e.currentTarget.classList.remove("border-2");
+    e.currentTarget.classList.remove("border-blue-500");
+    e.currentTarget.classList.remove("border-dashed");
+  };
+
+  const nestedDragOver = (e: any) => {
+    e.currentTarget.classList.add("border-2");
+    e.currentTarget.classList.add("border-blue-500");
+    e.currentTarget.classList.add("border-dashed");
+  };
+
+  const nestedDragLeave = (e: any) => {
+    e.currentTarget.classList.remove("border-2");
+    e.currentTarget.classList.remove("border-blue-500");
+    e.currentTarget.classList.remove("border-dashed");
   };
 
   return (
@@ -163,7 +188,9 @@ function App() {
                     draggable
                     onDragStart={onDragStartCard}
                     onDragEnd={onDragEndCard}
-                    onDragLeave={onDragEnterCard}
+                    onDragOver={nestedDragOver}
+                    onDrop={nestedDrop}
+                    onDragLeave={nestedDragLeave}
                     className="bg-gray-50 my-2 text-sm px-3 py-4 rounded shadow-lg cursor-pointer"
                   >
                     {nestedItem?.name}
