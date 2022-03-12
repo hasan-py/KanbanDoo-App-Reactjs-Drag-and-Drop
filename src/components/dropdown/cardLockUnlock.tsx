@@ -1,12 +1,31 @@
 import React from "react";
+import { cardDataHandler } from "../../controller/cardAndList";
 
-export const CardLockUnlock = ({ nestedItem }: any) => {
+export const CardLockUnlock = ({
+  dataset,
+  setDataset,
+  nestedItem,
+  index,
+  nestedIndex,
+}: any) => {
   return (
-    <span>
+    <span
+      onClick={() => {
+        cardDataHandler(
+          dataset,
+          setDataset,
+          "draggable",
+          !nestedItem?.draggable,
+          index,
+          nestedIndex
+        );
+      }}
+      className="cursor-pointer"
+    >
       {nestedItem.draggable ? (
         <>
           <svg
-            className="w-4 h-4 text-red-200 mr-2"
+            className="w-4 h-4 text-red-600 mr-2"
             fill="currentColor"
             viewBox="0 0 20 20"
             xmlns="http://www.w3.org/2000/svg"
@@ -17,7 +36,7 @@ export const CardLockUnlock = ({ nestedItem }: any) => {
       ) : (
         <>
           <svg
-            className="w-4 h-4 text-red-500 mr-2"
+            className="w-4 h-4 text-red-300 mr-2"
             fill="currentColor"
             viewBox="0 0 20 20"
             xmlns="http://www.w3.org/2000/svg"

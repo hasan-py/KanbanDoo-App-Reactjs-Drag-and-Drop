@@ -22,6 +22,7 @@ export const demoCardMaker = (listId: number, num: number, text: string) => {
       id: `${listId}-${i}`,
       name: `${text} ${i}`,
       draggable: true,
+      isEditable: false,
     });
   }
   return result;

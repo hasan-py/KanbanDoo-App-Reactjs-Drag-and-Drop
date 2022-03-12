@@ -1,6 +1,17 @@
 import React from "react";
+import {
+  // cardDataHandler,
+  // listDataHandler,
+  Remover,
+} from "../../controller/cardAndList";
 
-export const CardActoionDropDown = ({ nestedItem }: any) => {
+export const CardActoionDropDown = ({
+  dataset,
+  setDataset,
+  nestedItem,
+  index,
+  nestedIndex,
+}: any) => {
   return (
     <span>
       <div className="relative">
@@ -14,9 +25,32 @@ export const CardActoionDropDown = ({ nestedItem }: any) => {
             <path d="M10 6a2 2 0 110-4 2 2 0 010 4zM10 12a2 2 0 110-4 2 2 0 010 4zM10 18a2 2 0 110-4 2 2 0 010 4z" />
           </svg>
 
-          <ul className="text-xs z-30 w-24 -top-1 dropdown-menu absolute right-0 hidden text-gray-700 shadow-lg rounded pt-1">
-            <li>
-              <span className="rounded-t flex bg-white hover:bg-gray-200 py-2 px-4 block whitespace-no-wrap">
+          <ul className="text-xs z-30 w-22 -top-1 dropdown-menu absolute right-0 hidden text-gray-700 shadow-lg rounded pt-1">
+            {/* We can edit by dubble click */}
+            {/* <li>
+              <span
+                onClick={() => {
+                  if (nestedIndex && +nestedIndex >= 0) {
+                    cardDataHandler(
+                      dataset,
+                      setDataset,
+                      "isEditable",
+                      true,
+                      index,
+                      nestedIndex
+                    );
+                  } else {
+                    listDataHandler(
+                      dataset,
+                      setDataset,
+                      "renameListName",
+                      true,
+                      index
+                    );
+                  }
+                }}
+                className="cursor-pointer rounded-t flex bg-white hover:bg-gray-200 py-2 px-4 block whitespace-no-wrap"
+              >
                 Edit{" "}
                 <svg
                   className="w-3 h-3 ml-1"
@@ -32,9 +66,18 @@ export const CardActoionDropDown = ({ nestedItem }: any) => {
                   />
                 </svg>
               </span>
-            </li>
+            </li> */}
             <li>
-              <span className="rounded-b flex bg-white hover:bg-gray-200 py-2 px-4 block whitespace-no-wrap">
+              <span
+                onClick={() => {
+                  if (+nestedIndex >= 0) {
+                    Remover(dataset, setDataset, index, nestedIndex);
+                  } else {
+                    Remover(dataset, setDataset, index, null);
+                  }
+                }}
+                className="cursor-pointer rounded flex bg-white hover:bg-gray-200 py-2 px-4 block whitespace-no-wrap"
+              >
                 Delete{" "}
                 <svg
                   className="w-3 h-3 ml-1"

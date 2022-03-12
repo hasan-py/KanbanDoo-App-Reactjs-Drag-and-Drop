@@ -3,10 +3,28 @@ export const cardDataHandler = (
   setDataset: Function,
   name: string,
   value: string | boolean | number,
-  index: number
+  index: number,
+  nestedIndex: number
 ) => {
   const copy = [...dataset];
-  copy[index][name] = value;
+  copy[index].list[nestedIndex][name] = value;
+  setDataset(copy);
+};
+
+export const Remover = (
+  dataset: Array<any>,
+  setDataset: Function,
+  index: number,
+  nestedIndex: number | null
+) => {
+  let copy = [...dataset];
+  if (nestedIndex !== null) {
+    copy[index].list = copy[index].list?.filter(
+      (_: any, i: number) => i !== +nestedIndex
+    );
+  } else {
+    copy = copy?.filter((_: any, i: number) => i !== +index);
+  }
   setDataset(copy);
 };
 
@@ -31,7 +49,8 @@ export const newCardAddHandler = (
   copy[index].list.push({
     id: `${index}-${copy[index].list?.length}`,
     name: `${copy[index]["newCardInput"]}`,
-    isLocked: false,
+    draggable: true,
+    isEditable: false,
   });
   copy[index]["newCardInput"] = "";
 
