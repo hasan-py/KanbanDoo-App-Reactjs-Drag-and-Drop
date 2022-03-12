@@ -34,3 +34,8 @@ code {
 ::-webkit-scrollbar-thumb:hover {
   background: #60a5fa;
 }
+
+/* Card Action Drop Down */
+.dropdown:hover .dropdown-menu {
+  display: block;
+}
