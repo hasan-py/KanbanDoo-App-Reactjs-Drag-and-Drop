@@ -514,7 +514,17 @@ function Home() {
                   className="w-11/12 focus:outline-none px-1 bg-gray-50 text-sm"
                 />
 
-                <EmojiDropDown />
+                <EmojiDropDown
+                  onSelectEmoji={(emoji: string) => {
+                    listDataHandler(
+                      dataset,
+                      setDataset,
+                      "newCardInput",
+                      `${item?.newCardInput}${emoji}`,
+                      index
+                    );
+                  }}
+                />
               </>
             </div>
           </div>
@@ -559,7 +569,11 @@ function Home() {
               className="w-11/12 focus:outline-none px-1 bg-gray-50 text-sm"
             />
 
-            <EmojiDropDown />
+            <EmojiDropDown
+              onSelectEmoji={(emoji: string) => {
+                setNewListInput(`${newListInput}${emoji}`);
+              }}
+            />
           </div>
         </div>
       </div>
