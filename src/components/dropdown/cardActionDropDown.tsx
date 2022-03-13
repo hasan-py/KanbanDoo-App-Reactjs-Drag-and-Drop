@@ -1,14 +1,9 @@
-import React from "react";
-import {
-  // cardDataHandler,
-  // listDataHandler,
-  Remover,
-} from "../../controller/cardAndList";
+import { Remover } from "../../controller/cardAndList";
 
 export const CardActoionDropDown = ({
   dataset,
   setDataset,
-  nestedItem,
+  // nestedItem,
   index,
   nestedIndex,
 }: any) => {

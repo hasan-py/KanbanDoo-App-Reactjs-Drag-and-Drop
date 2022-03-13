@@ -1,4 +1,3 @@
-import React from "react";
 import { cardDataHandler } from "../../controller/cardAndList";
 
 export const CardLockUnlock = ({
@@ -36,7 +35,7 @@ export const CardLockUnlock = ({
       ) : (
         <>
           <svg
-            className="w-4 h-4 text-red-300 mr-2"
+            className="w-4 h-4 text-red-200 mr-2 animate-bounce"
             fill="currentColor"
             viewBox="0 0 20 20"
             xmlns="http://www.w3.org/2000/svg"
