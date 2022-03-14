@@ -1,3 +1,5 @@
+import { datasetInterface } from "../types";
+
 export const commonBorderAddRemoveInCurrentElem = (
   e: any,
   type: "add" | "remove"
@@ -40,7 +42,7 @@ export const commonBorderAddRemoveInCurrentElemList = (
 
 export const singleCardDragStart = (
   e: any,
-  dataset: any,
+  dataset: Array<datasetInterface>,
   setSelectedCard: Function
 ) => {
   const index = e.target.attributes["data-index"].value;

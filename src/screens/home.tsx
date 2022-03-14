@@ -1,4 +1,4 @@
-import List from "../components/cardAndList/list";
+import List from "../components/cardAndList/_list";
 import { HeaderAndFooter } from "../components/layout/headerAndFooter";
 
 function Home() {

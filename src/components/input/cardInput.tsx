@@ -2,8 +2,9 @@ import {
   listDataHandler,
   newCardAddHandler,
 } from "../../controller/cardAndList";
+import { spaceValidation } from "../../controller/utils";
 import { EmojiDropDown } from "../dropdown/emojiDropDown";
-import { CardAddIcon } from "../svgIcon";
+import { AddIconCircle, CardAddIcon } from "../svgIcon";
 
 export function CardInput({
   index,
@@ -16,7 +17,7 @@ export function CardInput({
     <>
       <div className="flex items-start mt-3">
         <>
-          <span className="cursor-pointer">
+          <span>
             <CardAddIcon />
           </span>
 
@@ -41,6 +42,17 @@ export function CardInput({
             }}
             className="w-11/12 focus:outline-none px-1 bg-gray-50 text-sm"
           />
+
+          <span
+            onClick={() => {
+              if (spaceValidation(item?.newCardInput)) {
+                newCardAddHandler(dataset, setDataset, index);
+              }
+            }}
+            className="mx-1 cursor-pointer"
+          >
+            <AddIconCircle />
+          </span>
 
           <EmojiDropDown
             onSelectEmoji={(emoji: string) => {

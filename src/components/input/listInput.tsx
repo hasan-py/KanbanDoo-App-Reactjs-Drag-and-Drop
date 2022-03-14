@@ -1,5 +1,6 @@
+import { spaceValidation } from "../../controller/utils";
 import { EmojiDropDown } from "../dropdown/emojiDropDown";
-import { ClipboardIcon } from "../svgIcon";
+import { AddIconCircle, ClipboardIcon } from "../svgIcon";
 
 export function ListInput({
   newListInput,
@@ -13,7 +14,7 @@ export function ListInput({
     <>
       <div className="px-2 w-[300px] overflow-y-auto">
         <div className="font-bold flex items-start">
-          <span className="cursor-pointer">
+          <span>
             <ClipboardIcon />
           </span>
 
@@ -35,6 +36,22 @@ export function ListInput({
             placeholder="Add new list"
             className="w-11/12 focus:outline-none px-1 bg-gray-50 text-sm"
           />
+
+          <span
+            onClick={() => {
+              if (spaceValidation(newListInput)) {
+                newListAddHandler(
+                  dataset,
+                  setDataset,
+                  newListInput,
+                  setNewListInput
+                );
+              }
+            }}
+            className="mx-1 cursor-pointer"
+          >
+            <AddIconCircle />
+          </span>
 
           <EmojiDropDown
             onSelectEmoji={(emoji: string) => {

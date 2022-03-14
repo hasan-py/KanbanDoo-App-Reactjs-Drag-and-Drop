@@ -44,7 +44,7 @@ export function DeleteIcon() {
   return (
     <>
       <svg
-        className="w-3 h-3 ml-1"
+        className="w-3 h-3 text-red-500 ml-1"
         fill="currentColor"
         viewBox="0 0 20 20"
         xmlns="http://www.w3.org/2000/svg"
@@ -78,7 +78,7 @@ export function EmojiIcon() {
   return (
     <>
       <svg
-        className="w-4 h-4 text-slate-400"
+        className="w-5 h-5 text-slate-400"
         fill="none"
         stroke="currentColor"
         viewBox="0 0 24 24"
@@ -137,6 +137,27 @@ export function CardAddIcon() {
   );
 }
 
+export function AddIconCircle() {
+  return (
+    <>
+      <svg
+        className="w-5 h-5 text-slate-400"
+        fill="none"
+        stroke="currentColor"
+        viewBox="0 0 24 24"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth={2}
+          d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"
+        />
+      </svg>
+    </>
+  );
+}
+
 export function UnlockIcon() {
   return (
     <>
@@ -175,14 +196,18 @@ export function ApproveIcon() {
   return (
     <>
       <svg
-        xmlns="http://www.w3.org/2000/svg"
-        className="h-4 w-4"
+        className="h-5 w-5 text-slate-400"
         fill="none"
-        viewBox="0 0 24 24"
         stroke="currentColor"
-        strokeWidth={2}
+        viewBox="0 0 24 24"
+        xmlns="http://www.w3.org/2000/svg"
       >
-        <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth={2}
+          d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+        />
       </svg>
     </>
   );
