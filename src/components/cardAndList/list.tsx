@@ -71,7 +71,7 @@ export default function List() {
                         );
                       }
                     }}
-                    className="col-span-1"
+                    className="col-span-1 cursor-pointer"
                   >
                     <CloseIcon />
                   </span>
