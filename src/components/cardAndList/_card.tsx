@@ -26,7 +26,7 @@ export default function SingleCard({
         {item.list?.map((nestedItem: any, nestedIndex: number) => (
           <div
             key={nestedIndex}
-            className="grid my-2 grid-cols-12 bg-white items-center rounded px-2"
+            className="grid my-2 grid-cols-12 shadow bg-white items-center rounded px-2"
           >
             <div className="col-span-1">
               {nestedItem?.isEditable ? (
