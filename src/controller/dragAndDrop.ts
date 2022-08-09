@@ -1,4 +1,5 @@
 import { datasetInterface } from "../types";
+import { setLocalStorage } from "./cardAndList";
 
 export const commonBorderAddRemoveInCurrentElem = (
   e: any,
@@ -113,6 +114,7 @@ export const listAndCardDrop = (
     }
 
     setDataset(result);
+    setLocalStorage("@list", result);
     setSelectedList(null);
   } else {
     /* 
@@ -142,6 +144,8 @@ export const listAndCardDrop = (
       copy[selectedCard?.prevLocation?.index].list = filter;
 
       setDataset(copy);
+      setLocalStorage("@list", copy);
+
       setSelectedCard(null);
     }
   }
@@ -171,6 +175,8 @@ export const singleCardDrop = (
     const result = [...arr, item, ...right];
     copy[index].list = result;
     setDataset(copy);
+    setLocalStorage("@list", copy);
+
     setSelectedCard(null);
   } else {
     const copy = [...dataset];
@@ -200,6 +206,8 @@ export const singleCardDrop = (
     copy[prevLocation.index].list = filter;
 
     setDataset(copy);
+    setLocalStorage("@list", copy);
+
     setSelectedCard(null);
   }
 

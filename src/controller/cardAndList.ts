@@ -9,6 +9,7 @@ export const cardDataHandler = (
   const copy = [...dataset];
   copy[index].list[nestedIndex][name] = value;
   setDataset(copy);
+  setLocalStorage("@list", copy);
 };
 
 export const Remover = (
@@ -26,6 +27,7 @@ export const Remover = (
     copy = copy?.filter((_: any, i: number) => i !== +index);
   }
   setDataset(copy);
+  setLocalStorage("@list", copy);
 };
 
 export const listDataHandler = (
@@ -38,6 +40,7 @@ export const listDataHandler = (
   const copy = [...dataset];
   copy[index][name] = value;
   setDataset(copy);
+  setLocalStorage("@list", copy);
 };
 
 export const newCardAddHandler = (
@@ -55,6 +58,7 @@ export const newCardAddHandler = (
   copy[index]["newCardInput"] = "";
 
   setDataset(copy);
+  setLocalStorage("@list", copy);
 };
 
 export const newListAddHandler = (
@@ -73,5 +77,16 @@ export const newListAddHandler = (
   });
 
   setDataset(copy);
+  setLocalStorage("@list", copy);
   setNewListInput("");
+};
+
+export const setLocalStorage = (key: string, value: any) => {
+  localStorage.setItem(key, JSON.stringify(value));
+};
+
+export const getLocalStorage = (key: string) => {
+  let data = localStorage.getItem(key);
+
+  return data ? JSON.parse(data) : [];
 };

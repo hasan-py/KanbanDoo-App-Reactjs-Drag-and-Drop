@@ -1,5 +1,8 @@
-import { useState } from "react";
-import { newListAddHandler } from "../../controller/cardAndList";
+import { useEffect, useState } from "react";
+import {
+  getLocalStorage,
+  newListAddHandler,
+} from "../../controller/cardAndList";
 import {
   listAndCardDrop,
   listDragEnd,
@@ -17,6 +20,10 @@ import SingleCard from "./_card";
 export default function List() {
   const [newListInput, setNewListInput] = useState<String>("");
   const [dataset, setDataset] = useState<Array<datasetInterface> | []>([]);
+
+  useEffect(() => {
+    setDataset(getLocalStorage("@list"));
+  }, []);
 
   const [selectedCard, setSelectedCard] = useState<cardInterface | null>();
   const [selectedList, setSelectedList] = useState<datasetInterface | null>();
